@@ -22,9 +22,9 @@ class Sim:
         self.TRAFFIC_LIGHT_WIDTH = 1
         self.TRAFFIC_LIGHT_HEIGHT = 4 / (self.X_DISTANCE / self.Y_DISTANCE)
         self.TRAFFIC_LIGHT_SCALE_FACTOR = 10
-        self.TRAFFIC_LIGHT_YELLOW_BEGIN_FRAME = 16
+        self.TRAFFIC_LIGHT_YELLOW_BEGIN_FRAME = 15
         self.TRAFFIC_LIGHT_RED_BEGIN_FRAME = 20
-        self.TRAFFIC_LIGHT_GREEN_BEGIN_FRAME = 28
+        self.TRAFFIC_LIGHT_GREEN_BEGIN_FRAME = 30
 
         gs = gridspec.GridSpec(8, 8)
         self.fig = plt.figure(figsize=(self.FIG_SIZE[0], self.FIG_SIZE[1]))
@@ -81,7 +81,7 @@ class Sim:
         # plot roads
         self.ax.add_patch(patches.Rectangle((self.TRAFFIC_LIGHT_X, 0), 2, 1))
 
-        # plot car
+        # plot car: go or stop at traffic light
         self.car_v += (np.random.rand(1)[0] - 0.5) * 10 * 0.3
         self.car_x += self.car_v
 
@@ -92,10 +92,19 @@ class Sim:
         self.ax.add_patch(patches.Rectangle((self.car_x, self.car_y), self.CAR_WIDTH * self.CAR_SCALE_FACTOR, self.CAR_HEIGHT * self.CAR_SCALE_FACTOR))
 
         # plot predicted car
-        (predict_x) = self.callback.predict(dt = 1)
+        (predict_x) = self.callback.predict(dt = 1, yellow_light_duration = self.TRAFFIC_LIGHT_RED_BEGIN_FRAME - self.TRAFFIC_LIGHT_YELLOW_BEGIN_FRAME)
         self.callback.update(x = self.car_x)
 
-        if (self.traffic_light_state == 'yellow'):
+        pred_car = patches.Rectangle(
+            (predict_x, self.car_y),
+            self.CAR_WIDTH * self.CAR_SCALE_FACTOR,
+            self.CAR_HEIGHT * self.CAR_SCALE_FACTOR,
+            fill = False
+        )
+        pred_car.set_linestyle('--')
+        self.ax.add_patch(pred_car)
+
+        if (self.traffic_light_state != 'green'):
             pred_car = patches.Rectangle(
                 (self.car_x_on_red, self.car_y),
                 self.CAR_WIDTH * self.CAR_SCALE_FACTOR,

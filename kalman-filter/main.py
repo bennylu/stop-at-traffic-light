@@ -32,7 +32,7 @@ class KalmanFilter:
             [0, 1]
         ])
 
-    def predict(self, dt):
+    def predict(self, dt, yellow_light_duration):
         self.F[0, 1] = dt
 
         # self.P[0, 0] += 0.1
@@ -42,13 +42,11 @@ class KalmanFilter:
         self.P = self.F * self.P * np.transpose(self.F)
 
         F_new = np.matrix([
-            [1, 4], # 4 seconds later
+            [1, yellow_light_duration],
             [0, 1]
         ])
         x_new = F_new * self.x
         return x_new[0, 0]
-
-        #return (self.x[0, 0])
     
     def update(self, x):
         Z = np.matrix(x)
@@ -59,8 +57,6 @@ class KalmanFilter:
         self.P = (self.I - K * self.H) * self.P
 
     def onYellowLightOn(self, traffic_light_x, duration):
-        print('onYellowLightOn', traffic_light_x, self.x[0, 0], duration)
-
         F_new = np.matrix([
             [1, duration],
             [0, 1]
