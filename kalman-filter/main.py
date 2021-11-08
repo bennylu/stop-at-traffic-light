@@ -10,8 +10,8 @@ class KalmanFilter:
         )
 
         self.P = np.matrix([
-            [1000, 0],
-            [0, 1000]
+            [1, 0],
+            [0, 1]
         ])
 
         self.F = np.matrix([
@@ -35,8 +35,8 @@ class KalmanFilter:
     def predict(self, dt, yellow_light_duration):
         self.F[0, 1] = dt
 
-        # self.P[0, 0] += 0.1
-        # self.P[1, 1] += 0.1
+        self.P[0, 0] += 0.1
+        self.P[1, 1] += 0.1
 
         self.x = self.F * self.x
         self.P = self.F * self.P * np.transpose(self.F)

@@ -11,19 +11,19 @@ class Sim:
         self.FIG_SIZE = [6, 6]
         self.X_DISTANCE = 500 # m
         self.Y_DISTANCE = 1
-        self.INTERVAL = 50
+        self.INTERVAL = 100
 
         self.CAR_WIDTH = 4
         self.CAR_HEIGHT = 2 / (self.X_DISTANCE / self.Y_DISTANCE)
         self.CAR_SCALE_FACTOR = 10
-        self.CAR_VELOCITY_M_S = 65 * 1000 / 3600 # km/h => m/s
+        self.CAR_VELOCITY_M_S = 60 * 1000 / 3600 # km/h => m/s
 
-        self.TRAFFIC_LIGHT_X = self.X_DISTANCE * 0.75
+        self.TRAFFIC_LIGHT_X = self.X_DISTANCE * 0.5
         self.TRAFFIC_LIGHT_WIDTH = 1
         self.TRAFFIC_LIGHT_HEIGHT = 4 / (self.X_DISTANCE / self.Y_DISTANCE)
         self.TRAFFIC_LIGHT_SCALE_FACTOR = 10
-        self.TRAFFIC_LIGHT_YELLOW_BEGIN_FRAME = 15
-        self.TRAFFIC_LIGHT_RED_BEGIN_FRAME = 20
+        self.TRAFFIC_LIGHT_YELLOW_BEGIN_FRAME = 10
+        self.TRAFFIC_LIGHT_RED_BEGIN_FRAME = 15
         self.TRAFFIC_LIGHT_GREEN_BEGIN_FRAME = 30
 
         gs = gridspec.GridSpec(8, 8)
