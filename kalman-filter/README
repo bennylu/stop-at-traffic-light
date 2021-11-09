@@ -1,3 +1,5 @@
+已知紅綠燈的黃燈時間長度，當車輛以非常數速度行進時，以 Kalman filter 預測車輛是否能在紅燈亮起前穿越馬路，若無法則車輛停止。
+
 # Environment setup
 conda create -n traffic-light-kalman-filter python=3.7.4
 conda activate traffic-light-kalman-filter
