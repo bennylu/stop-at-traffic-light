@@ -1,3 +1,8 @@
+# Environment setup
 conda create -n traffic-light-kalman-filter python=3.7.4
 conda activate traffic-light-kalman-filter
 conda install numpy matplotlib
+
+# Run the simulation
+
+python main.py
