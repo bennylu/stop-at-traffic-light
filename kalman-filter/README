@@ -4,5 +4,4 @@ conda activate traffic-light-kalman-filter
 conda install numpy matplotlib
 
 # Run the simulation
-
 python main.py
